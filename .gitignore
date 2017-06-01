@@ -1,1 +1,9 @@
+*
+!*/
+!*.*
+!Makefile
+!makefile
 *.pyc
+*.o
+/bin
+.DS_Store
