@@ -1,5 +1,6 @@
 #include "logUtils.h"
 #include "common.h"
+#include <stdio.h>
 
 void printArray (
     const void* arrStart, 
@@ -10,7 +11,7 @@ void printArray (
     for (int i = 0; i < length; i++)
     {
         int positionBytes = i*elemBytes;
-        printElem(arrStart + positionBytes);
+        printf("%d:", i); printElem(arrStart + positionBytes);
     }
 }
 

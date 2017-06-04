@@ -1,0 +1,21 @@
+#include "kataSort.h"
+#include "sortTests.h"
+
+#test bubbleSort_itShouldSortPersonStructures
+    sortPersonStructureTest(bubbleSort);
+
+#test bubbleSort_itShouldSortNumbers
+    sortFewNumbersTest(bubbleSort);
+
+#test bubbleSort_itShouldSortRandomArrayCorrectly
+    sortRandomBigArrayTest(bubbleSort);
+
+
+#test quickSort_itShouldSortPersonStructures
+    sortPersonStructureTest(quickSort);
+
+#test quickSort_itShouldSortNumbers
+    sortFewNumbersTest(quickSort);
+
+#test quickSort_itShouldSortRandomArrayCorrectly
+    sortRandomBigArrayTest(quickSort);
