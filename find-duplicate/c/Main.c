@@ -7,16 +7,10 @@
 #define VERIFY_EXPRESSION(EXPRESSION, out_char_pt, out_text) ({if (EXPRESSION) {} else { *out_char_pt=out_text; return 1;}})
 #define ARR_SIZE(arr) (sizeof(arr)/sizeof(arr[0]))
 
-int compareInt(const void* n1, const void* n2)
-{
-	if (*((int*)n1) > *((int*)n2)) {
-		return 1;
-	}
-	else if (*((int*)n1) < *((int*)n2)) {
-		return -1;
-	}
-	else return 0;
-}
+/* Given array having elements in range of 1 up to n-1, containing one element duplicated in array twice
+* determine value of duplicated element.
+*/
+
 
 int findDuplicate_mark(int* arr, int len)
 {
