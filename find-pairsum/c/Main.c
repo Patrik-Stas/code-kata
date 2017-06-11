@@ -34,22 +34,52 @@ int findPair(int* arr, int len, int targetSum, struct SumPair* out)
 	while (pl < pr) 
 	{
 		int pairSum = arr[pl] + arr[pr];
-		if (pairSum == targetSum) {
+		if (pairSum == targetSum) 
+		{
 			out[pairCounter].n1 = arr[pl];
 			out[pairCounter].n2 = arr[pr];
 			pairCounter++;
 			pl++;
 			pr--;
 		}
-		else if (pairSum<targetSum) {
+		else if (pairSum<targetSum) 
+		{
 			pl++;
 		}
-		else {
+		else 
+		{
 			pr--;
 		}
 	} 
 	return pairCounter;
 }
+
+int findPair_dict(int* arr, int len, int targetSum, struct SumPair* out)
+{
+	int max = targetSum;
+	for (int i=0; i<len; i++) 
+	{
+		max = (max<arr[i]) ? arr[i] : max;
+	}
+	int pairCount = 0;
+	int* buckets = malloc(sizeof(int)*max+1);
+	for (int i=0; i<len; i++) {
+		buckets[i]=0;
+	}
+	for (int i=0; i<len; i++) {
+		int no = arr[i];
+		int needNo = targetSum - no;
+		if (needNo>0 && buckets[needNo] == 1) {
+			printf("for %d found needded bucket value %d\n", no, needNo);
+			out[pairCount].n1 = (no < needNo) ? no : needNo;
+			out[pairCount].n2 = (no < needNo) ? needNo : no;
+			pairCount++;
+		}
+		buckets[no] = 1;
+	}
+	return pairCount;
+}
+
 
 
 int test_it_should_find_pair_producing_sum(char** outputPtr)
@@ -60,7 +90,7 @@ int test_it_should_find_pair_producing_sum(char** outputPtr)
 	struct SumPair* pairs = malloc(sizeof(struct SumPair)*10);
 
 	// exercise
-	int foundPairsCount = findPair(arr, ARR_SIZE(arr), searchSum, pairs);
+	int foundPairsCount = findPair_dict(arr, ARR_SIZE(arr), searchSum, pairs);
 
 	//verify
 	VERIFY_EXPRESSION(2 == foundPairsCount, outputPtr, "Expected 2 pairs to be found.");
@@ -82,8 +112,10 @@ int test_it_should_find_nothing(char** outputPtr)
 	struct SumPair* pairs = malloc(sizeof(struct SumPair)*10);
 
 	//exercise
-	int foundPairsCount = findPair(arr, ARR_SIZE(arr), searchSum, pairs);
-
+	int foundPairsCount = findPair_dict(arr, ARR_SIZE(arr), searchSum, pairs);
+	for(int i=0; i<foundPairsCount; i++) {
+		printf("Found pair: %d,%d\n", pairs[i].n1, pairs[i].n2 );
+	}
 	//verify
 	VERIFY_EXPRESSION(0 == foundPairsCount , outputPtr, "Expected zero pairs, but a pair was found.");
 
